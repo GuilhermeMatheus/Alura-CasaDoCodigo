@@ -13,6 +13,9 @@ namespace CasaDoCodigo.Model
         public virtual string DisplayName { get; set; }
         public virtual decimal Price { get; set; }
 
+        public virtual DateTime UpdateDate { get; set; }
+        public virtual DateTime PublishDate { get; set; }
+
         public virtual IList<Author> Authors { get; set; }
         public virtual Category Category { get; set; }
     }

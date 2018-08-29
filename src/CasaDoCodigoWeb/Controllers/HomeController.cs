@@ -9,6 +9,7 @@ using CasaDoCodigo.Core.Repository;
 
 namespace CasaDoCodigoWeb.Controllers
 {
+    // dotnet ef database update --project .\CasaDoCodigo.EF --startup-project .\CasaDoCodigoWeb
     public class HomeController : Controller
     {
         private IBookRepository _bookRepository;

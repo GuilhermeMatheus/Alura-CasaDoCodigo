@@ -34,6 +34,7 @@ namespace CasaDoCodigo.EF
             book.Property(e => e.Summary).IsRequired();
             book.Property(e => e.DisplayName).IsRequired();
             book.Property(e => e.Price).IsRequired();
+            book.Property(e => e.Price).HasColumnType("decimal(5,2)");
             book.HasOne(e => e.Category);
         }
 
