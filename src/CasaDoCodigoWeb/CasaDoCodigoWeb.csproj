@@ -13,10 +13,17 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\covers\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CasaDoCodigo.EF\CasaDoCodigo.EF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Cart\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
 </Project>
