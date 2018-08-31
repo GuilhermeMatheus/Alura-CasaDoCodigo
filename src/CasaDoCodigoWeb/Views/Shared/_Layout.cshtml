@@ -13,7 +13,7 @@
 <body>
     <header role="banner" class="cabecalhoPrincipal container">
         <h1 class="cabecalhoPrincipal-titulo">
-            <a tabindex="1" href="https://www.casadocodigo.com.br/" class="cabecalhoPrincipal-linkTitulo">
+            <a tabindex="1" asp-action="Index" asp-controller="Home" class="cabecalhoPrincipal-linkTitulo">
                 <svg class="logo" role="img" aria-labelledby="altLogo" x="0px" y="0px" viewBox="0 0 208.769 70" enable-background="new 0 0 208.769 70" xml:space="preserve">
                 <title id="altLogo">Casa do Código - Livros e Tecnologia</title>
                 <rect id="back" fill="#FFFFFF" width="65" height="70"></rect>
@@ -126,126 +126,111 @@
             <div class="cabecalhoPrincipal-categoriasEBusca" role="presentation">
                 <nav role="navigation" aria-label="Categorias de livros" class="colecoesDaCDC">
                     <li class="colecoesDaCDC-colecaoItem">
-                        <a href="https://www.casadocodigo.com.br/collections/livros-de-programacao" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
+                        <a asp-controller="Books" asp-action="Category" asp-route-name="Programação" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
                             Programação
                         </a>
                         <nav class="colecoesDaCDC-colecaoItem-subColecoes" style="max-height: 0px; display: block;" data-altura="404px">
                     <li class="colecaoItem-subColecoes-item">
-                        <a href="https://www.casadocodigo.com.br/collections/programacao-logica">Lógica</a>
+                        <a asp-controller="Books" asp-action="Category" asp-route-name="Logica">Lógica</a>
                     </li>
                     <li class="colecaoItem-subColecoes-item">
-                        <a href="https://www.casadocodigo.com.br/collections/programacao-java">Java</a>
+                        <a asp-controller="Books" asp-action="Category" asp-route-name="Java">Java</a>
                     </li>
                     <li class="colecaoItem-subColecoes-item">
-                        <a href="https://www.casadocodigo.com.br/collections/programacao-net">.NET</a>
+                        <a asp-controller="Books" asp-action="Category" asp-route-name="Net">.NET</a>
                     </li>
                     <li class="colecaoItem-subColecoes-item">
-                        <a href="https://www.casadocodigo.com.br/collections/programacao-php">PHP</a>
+                        <a asp-controller="Books" asp-action="Category" asp-route-name="Php">PHP</a>
                     </li>
                     <li class="colecaoItem-subColecoes-item">
-                        <a href="https://www.casadocodigo.com.br/collections/programacao-games">Games</a>
+                        <a asp-controller="Books" asp-action="Category" asp-route-name="Games">Games</a>
                     </li>
                     <li class="colecaoItem-subColecoes-item">
-                        <a href="https://www.casadocodigo.com.br/collections/programacao-oo">OO</a>
+                        <a asp-controller="Books" asp-action="Category" asp-route-name="Oo">OO</a>
                     </li>
                     <li class="colecaoItem-subColecoes-item">
-                        <a href="https://www.casadocodigo.com.br/collections/programacao-funcional">Funcional</a>
+                        <a asp-controller="Books" asp-action="Category" asp-route-name="Funcional">Funcional</a>
                     </li>
                     <li class="colecaoItem-subColecoes-item">
-                        <a href="https://www.casadocodigo.com.br/collections/programacao-outros">Outros</a>
-                    </li>
-                    <li class="colecaoItem-subColecoes-item">
-                        <a href="https://www.casadocodigo.com.br/collections/livros-de-programacao">Todos</a>
+                        <a asp-controller="Books" asp-action="Category" asp-route-name="Programação">Todos</a>
                     </li>
                 </nav>
                 </li>
                 <li class="colecoesDaCDC-colecaoItem">
-                    <a href="https://www.casadocodigo.com.br/collections/livros-de-mobile" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Mobile" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
                         Mobile
                     </a>
                     <nav class="colecoesDaCDC-colecaoItem-subColecoes" style="max-height: 0px; display: block;" data-altura="224px">
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/mobile-ios">iOS</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Ios">iOS</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/mobile-android">Android</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Android">Android</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/mobile-multiplataforma">Multiplataforma</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Multiplataforma">Multiplataforma</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/mobile-outros">Outros</a>
-                </li>
-                <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/livros-de-mobile">Todos</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Mobile">Todos</a>
                 </li>
                 </nav>
                 </li>
                 <li class="colecoesDaCDC-colecaoItem">
-                    <a href="https://www.casadocodigo.com.br/collections/livros-de-front-end" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Front" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
                         Front-end
                     </a>
                     <nav class="colecoesDaCDC-colecaoItem-subColecoes" data-altura="179px" style="max-height: 0px; display: block;">
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/front-end-html-e-css">HTML e CSS</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Htmlcss">HTML e CSS</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/front-end-javascript">JavaScript</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Javascript">JavaScript</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/front-end-outros">Outros</a>
-                </li>
-                <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/livros-de-front-end">Todos</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Front">Todos</a>
                 </li>
                 </nav>
                 </li>
                 <li class="colecoesDaCDC-colecaoItem">
-                    <a href="https://www.casadocodigo.com.br/collections/livros-de-infraestrutura" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Infraestrutura" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
                         Infraestrutura
                     </a>
                     <nav class="colecoesDaCDC-colecaoItem-subColecoes" style="max-height: 0px; display: block;" data-altura="179px">
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/infraestrutura-web">Web</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Web">Web</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/infraestrutura-dados">Dados</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Dados">Dados</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/infraestrutura-outros">Outros</a>
-                </li>
-                <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/livros-de-infraestrutura">Todos</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Infraestrutura">Todos</a>
                 </li>
                 </nav>
                 </li>
                 <li class="colecoesDaCDC-colecaoItem">
-                    <a href="https://www.casadocodigo.com.br/collections/livros-de-business" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Business" class="colecoesDaCDC-colecaoLink colecoesDaCDC-colecaoLink--comSubColecao">
                         Business
                     </a>
                     <nav class="colecoesDaCDC-colecaoItem-subColecoes" style="max-height: 0px; display: block;" data-altura="269px">
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/business-startups">Startups</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Startups">Startups</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/business-marketing-digital">Marketing Digital</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Marketingdigital">Marketing Digital</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/business-gestao">Gestão</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Gestao">Gestão</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/business-agile">Agile</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Agile">Agile</a>
                 </li>
                 <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/business-outros">Outros</a>
-                </li>
-                <li class="colecaoItem-subColecoes-item">
-                    <a href="https://www.casadocodigo.com.br/collections/livros-de-business">Todos</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Business">Todos</a>
                 </li>
                 </nav>
                 </li>
                 <li class="colecoesDaCDC-colecaoItem">
-                    <a href="https://www.casadocodigo.com.br/collections/design-e-ux" class="colecoesDaCDC-colecaoLink ">
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Designux" class="colecoesDaCDC-colecaoLink ">
                         Design &amp; UX
                     </a>
                 </li>

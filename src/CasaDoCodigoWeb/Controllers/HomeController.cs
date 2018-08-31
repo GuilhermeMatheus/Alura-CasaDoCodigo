@@ -22,9 +22,20 @@ namespace CasaDoCodigoWeb.Controllers
         public async Task<IActionResult> Index()
         {
             var books = await _bookRepository.FetchAllAsync();
-            books.ToString();
 
-            return View();
+            var updates = books.OrderByDescending(b => b.UpdateDate).Take(4).ToList();
+            var publish = books.OrderByDescending(b => b.PublishDate).Take(4).ToList();
+
+            var model = new HomeViewModel
+            {
+                FeaturedBig = publish[0],
+                FeaturedMedium = publish[1],
+                FeaturedSmall = publish[2],
+                LastReleases = publish,
+                LastUpdates = updates
+            };
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

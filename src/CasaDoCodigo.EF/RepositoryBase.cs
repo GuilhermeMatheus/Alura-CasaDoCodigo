@@ -14,8 +14,8 @@ namespace CasaDoCodigo.EF
     {
         protected readonly CasaDoCodigoDbContext _dbContext;
         protected readonly Expression<Func<TEntity, TKey>> _keySelector;
-
-        public IQueryable<TEntity> Query => Set().AsQueryable();
+        
+        public virtual IQueryable<TEntity> Query => Set().AsQueryable();
 
         internal RepositoryBase(CasaDoCodigoDbContext dbContext, Expression<Func<TEntity, TKey>> keySelector)
         {
@@ -23,8 +23,13 @@ namespace CasaDoCodigo.EF
             _keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
         }
       
-        public async Task<TEntity> GetAsync(TKey key) =>
-            await Set().FindAsync(key);
+        public async Task<TEntity> GetAsync(TKey key)
+        {
+            var body = Expression.Equal(_keySelector.Body, Expression.Constant(key));
+            var expr = Expression.Lambda<Func<TEntity, bool>>(body, _keySelector.Parameters);
+
+            return await Query.FirstAsync(expr);
+        }
 
         public async Task AddAsync(TEntity entity) => await Set().AddAsync(entity);
         public async Task<List<TEntity>> FetchAllAsync() => await Set().ToListAsync();

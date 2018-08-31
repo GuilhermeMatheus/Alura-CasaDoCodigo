@@ -16,5 +16,11 @@ namespace CasaDoCodigo.EF
             : base(dbContext, e => e.Id)
         {
         }
+
+        public override IQueryable<Book> Query
+            => Set()
+                .Include(b => b.Category)
+                .Include(b => b.BookAuthors)
+                .ThenInclude(a => a.Author);
     }
 }

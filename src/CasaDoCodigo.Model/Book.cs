@@ -11,12 +11,13 @@ namespace CasaDoCodigo.Model
         public virtual string SubTitle { get; set; }
         public virtual string Summary { get; set; }
         public virtual string DisplayName { get; set; }
+        public virtual string CoverUri { get; set; }
         public virtual decimal Price { get; set; }
 
         public virtual DateTime UpdateDate { get; set; }
         public virtual DateTime PublishDate { get; set; }
 
-        public virtual IList<Author> Authors { get; set; }
+        public virtual ICollection<BookAuthorJoin> BookAuthors { get; set; }
         public virtual Category Category { get; set; }
     }
 }

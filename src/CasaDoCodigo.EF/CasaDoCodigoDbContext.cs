@@ -20,6 +20,20 @@ namespace CasaDoCodigo.EF
             var book = modelBuilder.Entity<Book>();
             var author = modelBuilder.Entity<Author>();
             var category = modelBuilder.Entity<Category>();
+            var bookAuthorJoin = modelBuilder.Entity<BookAuthorJoin>();
+
+            bookAuthorJoin
+                .HasKey(bc => new { bc.BookId, bc.AuthorId });
+
+            bookAuthorJoin
+                .HasOne(bc => bc.Book)
+                .WithMany(c => c.BookAuthors)
+                .HasForeignKey(bc => bc.BookId);
+
+            bookAuthorJoin
+                .HasOne(bc => bc.Author)
+                .WithMany(c => c.BookAuthors)
+                .HasForeignKey(bc => bc.AuthorId);
 
             category.HasKey(i => i.Id);
             category.Property(e => e.Name).IsRequired();
@@ -28,7 +42,6 @@ namespace CasaDoCodigo.EF
             author.Property(e => e.Name).IsRequired();
 
             book.HasKey(i => i.Id);
-            book.HasMany(e => e.Authors);
             book.Property(e => e.Title).IsRequired();
             book.Property(e => e.SubTitle).IsRequired();
             book.Property(e => e.Summary).IsRequired();

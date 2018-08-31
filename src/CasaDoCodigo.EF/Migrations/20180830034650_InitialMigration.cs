@@ -9,6 +9,19 @@ namespace CasaDoCodigo.EF.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Authors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Authors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -38,6 +51,7 @@ namespace CasaDoCodigo.EF.Migrations
                     SubTitle = table.Column<string>(nullable: false),
                     Summary = table.Column<string>(nullable: false),
                     DisplayName = table.Column<string>(nullable: false),
+                    CoverUri = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     PublishDate = table.Column<DateTime>(nullable: false),
@@ -55,29 +69,33 @@ namespace CasaDoCodigo.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Authors",
+                name: "BookAuthorJoin",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: false),
-                    BookId = table.Column<int>(nullable: true)
+                    AuthorId = table.Column<int>(nullable: false),
+                    BookId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Authors", x => x.Id);
+                    table.PrimaryKey("PK_BookAuthorJoin", x => new { x.BookId, x.AuthorId });
                     table.ForeignKey(
-                        name: "FK_Authors_Books_BookId",
+                        name: "FK_BookAuthorJoin_Authors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Authors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookAuthorJoin_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Authors_BookId",
-                table: "Authors",
-                column: "BookId");
+                name: "IX_BookAuthorJoin_AuthorId",
+                table: "BookAuthorJoin",
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_CategoryId",
@@ -92,6 +110,9 @@ namespace CasaDoCodigo.EF.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BookAuthorJoin");
+
             migrationBuilder.DropTable(
                 name: "Authors");
 

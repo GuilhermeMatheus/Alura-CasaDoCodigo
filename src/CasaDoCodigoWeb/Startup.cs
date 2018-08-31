@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CasaDoCodigo.Core.Repository;
 using CasaDoCodigo.EF;
 using CasaDoCodigo.Model;
@@ -39,12 +40,17 @@ namespace CasaDoCodigoWeb
             var connectionString = Configuration.GetConnectionString("Default");
 
             services.AddDbContext<CasaDoCodigoDbContext>(options =>
-                options.UseSqlServer(connectionString)
+                options
+                    .EnableSensitiveDataLogging()
+                    //.UseLazyLoadingProxies()
+                    .UseSqlServer(connectionString)
             );
 
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<IAuthorRepository, AuthorRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+
+            services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -91,19 +97,29 @@ namespace CasaDoCodigoWeb
         private void SeedDataBaseImpl(CasaDoCodigoDbContext context)
         {
             var data = File.ReadAllText("consolidation.json");
-            var booksData = JsonConvert.DeserializeObject<BookRepresentation[]>(data);
+            var booksData = JsonConvert.DeserializeObject<BookData[]>(data);
 
-            var allCategories = GetCategories(booksData).ToList();
-            var allAuthors = GetAuthors(booksData).ToList();
+            var categories = GetCategories(booksData).ToList();
+            var authors = GetAuthors(booksData).ToList();
+            var books = GetBooks(booksData, categories, authors);
 
+            context.Categories.AddRange(categories);
+            context.Authors.AddRange(authors);
+            context.Books.AddRange(books);
+
+            context.SaveChanges();
+        }
+
+        private static IEnumerable<Book> GetBooks(IEnumerable<BookData> booksData, List<Category> categories, List<Author> authors)
+        {
             var booksQuery =
                 from book in booksData
-                let authors = book.Author.Split(",")
+                let bookAuthors = book.Author.Split(",")
                 let category = string.IsNullOrEmpty(book.Subcategory) ? book.Category : book.Subcategory
-                select new Book
+                select (new Book
                 {
-                    Authors = allAuthors.Where(a => authors.Contains(a.Name)).ToList(),
-                    Category = allCategories.First(c => c.Name.Equals(category, StringComparison.OrdinalIgnoreCase)),
+                    Category = categories.First(c => c.Name.Equals(category, StringComparison.OrdinalIgnoreCase)),
+                    CoverUri = book.Img,
                     Title = book.Title,
                     SubTitle = book.Sub,
                     Summary = book.Content,
@@ -111,13 +127,16 @@ namespace CasaDoCodigoWeb
                     Price = 5,
                     PublishDate = new DateTime(2010, 1, 1),
                     UpdateDate = new DateTime(2010, 1, 1)
-                };
+                }, authors.Where(a => bookAuthors.Contains(a.Name)).ToList());
 
-            var books = booksQuery.ToList();
-            books.ToString();
+            foreach (var item in booksQuery)
+            {
+                item.Item1.BookAuthors = item.Item2.Select(a => new BookAuthorJoin { Author = a, Book = item.Item1 }).ToList();
+                yield return item.Item1;
+            }
         }
 
-        private static IEnumerable<Author> GetAuthors(BookRepresentation[] books)
+        private static IEnumerable<Author> GetAuthors(BookData[] books)
         {
             var authorsQuery =
                 from book in books
@@ -135,7 +154,7 @@ namespace CasaDoCodigoWeb
             return authors;
         }
 
-        private static IEnumerable<Category> GetCategories(BookRepresentation[] books)
+        private static IEnumerable<Category> GetCategories(BookData[] books)
         {
             var categoriesQuery =
                             from book in books
@@ -146,7 +165,8 @@ namespace CasaDoCodigoWeb
             var categories =
                 categoriesQuery
                     .GroupBy(c => c)
-                    .Select(g => new Category { Name = g.First() });
+                    .Select(g => new Category { Name = g.First() })
+                    .ToList();
 
             var subCategoriesQuery =
                 from book in books
@@ -166,7 +186,7 @@ namespace CasaDoCodigoWeb
         }
     }
 
-    class BookRepresentation
+    class BookData
     {
         public string Author { get; set; }
         public string Category { get; set; }

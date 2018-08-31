@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -84,7 +85,7 @@
     <section class="vitrineDestacao-categorias">
         <ul class="vitrineDestacao-categorias-lista">
             <li class="vitrineDestacao-categorias-categoria vitrineDestacao-categorias-categoria--programacao">
-                <a href="https://www.casadocodigo.com.br/collections/livros-de-programacao" class="vitrineDestacao-categoria-link">
+                <a asp-controller="Books" asp-action="Category" asp-route-name="Programação" class="vitrineDestacao-categoria-link">
                     <img src="~/images/icon-programacao.svg" alt="" class="vitrineDestacao-link-icone">
                     <h3 class="vitrineDestacao-link-titulo vitrineDestacao-link-titulo--programacao">
                         Livros de
@@ -92,18 +93,18 @@
                     </h3>
                 </a>
                 <div class="vitrineDestacao-link-subcategorias">
-                    <a href="https://www.casadocodigo.com.br/collections/programacao-logica">Lógica</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/programacao-java">Java</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/programacao-net">.NET</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/programacao-php">PHP</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/programacao-games">Games</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/programacao-oo">OO</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/programacao-funcional">Funcional</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/programacao-outros">Outros</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Logica">Lógica</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Java">Java</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Net">.NET</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Php">PHP</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Games">Games</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Oo">OO</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Funcional">Funcional</a>
+                    @*<a href="https://www.casadocodigo.com.br/collections/programacao-outros">Outros</a>*@
                 </div>
             </li>
             <li class="vitrineDestacao-categorias-categoria vitrineDestacao-categorias-categoria--mobile">
-                <a href="https://www.casadocodigo.com.br/collections/livros-de-mobile" class="vitrineDestacao-categoria-link">
+                <a asp-controller="Books" asp-action="Category" asp-route-name="Mobile" class="vitrineDestacao-categoria-link">
                     <img src="~/images/icon-mobile.svg" alt="" class="vitrineDestacao-link-icone">
                     <h3 class="vitrineDestacao-link-titulo vitrineDestacao-link-titulo--mobile">
                         Livros de
@@ -111,14 +112,14 @@
                     </h3>
                 </a>
                 <div class="vitrineDestacao-link-subcategorias">
-                    <a href="https://www.casadocodigo.com.br/collections/mobile-ios">iOS</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/mobile-android">Android</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/mobile-multiplataforma">Multiplataforma</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/mobile-outros">Outros</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Ios">iOS</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Android">Android</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Multiplataforma">Multiplataforma</a>
+                    @*<a href="https://www.casadocodigo.com.br/collections/mobile-outros">Outros</a>*@
                 </div>
             </li>
             <li class="vitrineDestacao-categorias-categoria vitrineDestacao-categorias-categoria--front-end">
-                <a href="https://www.casadocodigo.com.br/collections/livros-de-front-end" class="vitrineDestacao-categoria-link">
+                <a asp-controller="Books" asp-action="Category" asp-route-name="Front" class="vitrineDestacao-categoria-link">
                     <img src="~/images/icon-front-end.svg" alt="" class="vitrineDestacao-link-icone">
                     <h3 class="vitrineDestacao-link-titulo vitrineDestacao-link-titulo--front-end">
                         Livros de
@@ -126,13 +127,13 @@
                     </h3>
                 </a>
                 <div class="vitrineDestacao-link-subcategorias">
-                    <a href="https://www.casadocodigo.com.br/collections/front-end-html-e-css">HTML e CSS</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/front-end-javascript">JavaScript</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/front-end-outros">Outros</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Htmlcss">HTML e CSS</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Javascript">JavaScript</a>
+                    @*<a href="https://www.casadocodigo.com.br/collections/front-end-outros">Outros</a>*@
                 </div>
             </li>
             <li class="vitrineDestacao-categorias-categoria vitrineDestacao-categorias-categoria--infraestrutura">
-                <a href="https://www.casadocodigo.com.br/collections/livros-de-infraestrutura" class="vitrineDestacao-categoria-link">
+                <a asp-controller="Books" asp-action="Category" asp-route-name="Infraestrutura" class="vitrineDestacao-categoria-link">
                     <img src="~/images/icon-infraestrutura.svg" alt="" class="vitrineDestacao-link-icone">
                     <h3 class="vitrineDestacao-link-titulo vitrineDestacao-link-titulo--infraestrutura">
                         Livros de
@@ -140,13 +141,13 @@
                     </h3>
                 </a>
                 <div class="vitrineDestacao-link-subcategorias">
-                    <a href="https://www.casadocodigo.com.br/collections/infraestrutura-web">Web</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/infraestrutura-dados">Dados</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/infraestrutura-outros">Outros</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Web">Web</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Dados">Dados</a>
+                    @*<a href="https://www.casadocodigo.com.br/collections/infraestrutura-outros">Outros</a>*@
                 </div>
             </li>
             <li class="vitrineDestacao-categorias-categoria vitrineDestacao-categorias-categoria--business">
-                <a href="https://www.casadocodigo.com.br/collections/livros-de-business" class="vitrineDestacao-categoria-link">
+                <a asp-controller="Books" asp-action="Category" asp-route-name="Business" class="vitrineDestacao-categoria-link">
                     <img src="~/images/icon-business.svg" alt="" class="vitrineDestacao-link-icone">
                     <h3 class="vitrineDestacao-link-titulo vitrineDestacao-link-titulo--business">
                         Livros de
@@ -154,15 +155,15 @@
                     </h3>
                 </a>
                 <div class="vitrineDestacao-link-subcategorias">
-                    <a href="https://www.casadocodigo.com.br/collections/business-startups">Startups</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/business-marketing-digital">Marketing Digital</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/business-gestao">Gestão</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/business-agile">Agile</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/business-outros">Outros</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Startups">Startups</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Marketingdigital">Marketing Digital</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Gestao">Gestão</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Agile">Agile</a>
+                    @*<a href="https://www.casadocodigo.com.br/collections/business-outros">Outros</a>*@
                 </div>
             </li>
             <li class="vitrineDestacao-categorias-categoria vitrineDestacao-categorias-categoria--design-e-ux">
-                <a href="https://www.casadocodigo.com.br/collections/design-e-ux" class="vitrineDestacao-categoria-link">
+                <a asp-controller="Books" asp-action="Category" asp-route-name="Designux" class="vitrineDestacao-categoria-link">
                     <img src="~/images/icon-design-e-ux.svg" alt="" class="vitrineDestacao-link-icone">
                     <h3 class="vitrineDestacao-link-titulo vitrineDestacao-link-titulo--design-e-ux">
                         Livros de
@@ -170,9 +171,9 @@
                     </h3>
                 </a>
                 <div class="vitrineDestacao-link-subcategorias">
-                    <a href="https://www.casadocodigo.com.br/collections/design-e-ux">UX</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/design-e-ux">Photoshop</a>,
-                    <a href="https://www.casadocodigo.com.br/collections/design-e-ux">Lightroom</a>
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Designux">UX</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Designux">Photoshop</a>,
+                    <a asp-controller="Books" asp-action="Category" asp-route-name="Designux">Lightroom</a>
                 </div>
             </li>
         </ul>
@@ -181,110 +182,38 @@
 <section class="vitrineDestaquinho container">
     <h2 class="vitrineDestaquinho-titulo">Últimos lançamentos</h2>
     <ul class="vitrineDestaquinho-lista">
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-admin-linux" class="livroNaVitrine-link" title="Guia prático do servidor Linux: Administração Linux para iniciantes">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/p_c0c149aa-c079-4d5f-ab0f-8d2e01130250_large.jpg" alt="Livro de Administração Linux" title="Livro de Administração Linux">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    Administração Linux
-                </span>
-            </a>
-        </li>
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-kotlin-android" class="livroNaVitrine-link" title="Kotlin com Android: Crie aplicativos de maneira fácil e divertida">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/p_4d784e4f-769e-4f00-82d9-c1c81628055a_large.jpg" alt="Livro de Kotlin com Android" title="Livro de Kotlin com Android">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    Kotlin com Android
-                </span>
-            </a>
-        </li>
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-selenium-webdriver" class="livroNaVitrine-link" title="Selenium WebDriver: Descomplicando testes automatizados com Java">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/p_large.jpg" alt="Livro de Selenium WebDriver" title="Livro de Selenium WebDriver">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    Selenium WebDriver
-                </span>
-            </a>
-        </li>
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-trilhas-python" class="livroNaVitrine-link" title="Trilhas Python: Programação multiparadigma e desenvolvimento Web com Flask">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/psAMwwTIQZZygm3u5NRBJg6olDKQERUGv7qX9EcPe78_large.jpg" alt="Livro de Trilhas Python" title="Livro de Trilhas Python">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    Trilhas Python
-                </span>
-            </a>
-        </li>
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-ux-produtos-digitais" class="livroNaVitrine-link" title="User Experience Design: Como criar produtos digitais com foco nas pessoas">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/e5PZBhz-GgLjsR0upBI7EnpMNg7FVmBTYZcXo4LNeZ4_large.jpg" alt="Livro de UX em produtos digitais" title="Livro de UX em produtos digitais">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    UX em produtos digitais
-                </span>
-            </a>
-        </li>
+
+        @foreach (var item in Model.LastReleases)
+        {
+            <li class="livroNaVitrine vitrineDestaquinho-produto">
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id" class="livroNaVitrine-link" title="@item.Title">
+                    <div class="livroNaVitrine-imagemContainer" role="presentation">
+                        <img class="livroNaVitrine-imagem " src="@item.CoverUri" alt="@item.DisplayName" title="@item.DisplayName">
+                    </div>
+                    <span class="livroNaVitrine-nome">
+                        @item.DisplayName
+                    </span>
+                </a>
+            </li>
+        }
     </ul>
 </section>
 <section class="vitrineDestaquinho container">
     <h2 class="vitrineDestaquinho-titulo">Últimos atualizados</h2>
     <ul class="vitrineDestaquinho-lista">
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-oo-conceitos" class="livroNaVitrine-link" title="Orientação a Objetos: Aprenda seus conceitos e suas aplicabilidades de forma efetiva">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/eBook-Orientacao-a-Objetos-atualizado_large.jpg" alt="Livro de Orientação a Objetos" title="Livro de Orientação a Objetos">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    Orientação a Objetos
-                </span>
-            </a>
-        </li>
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-scratch" class="livroNaVitrine-link" title="Scratch: Um jeito divertido de aprender programação">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/YenvGixkQWFaq3oZpZr7dGXue8geB59fbwBHgS23orQ_large.jpg" alt="Livro de Scratch" title="Livro de Scratch">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    Scratch
-                </span>
-            </a>
-        </li>
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-vue" class="livroNaVitrine-link" title="Vue.js: Construa aplicações incríveis">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/eBook-Vue_large.jpg" alt="Livro de Vue.js" title="Livro de Vue.js">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    Vue.js
-                </span>
-            </a>
-        </li>
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-ux-produtos-digitais" class="livroNaVitrine-link" title="User Experience Design: Como criar produtos digitais com foco nas pessoas">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/e5PZBhz-GgLjsR0upBI7EnpMNg7FVmBTYZcXo4LNeZ4_large.jpg" alt="Livro de UX em produtos digitais" title="Livro de UX em produtos digitais">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    UX em produtos digitais
-                </span>
-            </a>
-        </li>
-        <li class="livroNaVitrine vitrineDestaquinho-produto">
-            <a href="https://www.casadocodigo.com.br/products/livro-c-sharp" class="livroNaVitrine-link" title="C# e Visual Studio: Desenvolvimento de aplicações desktop">
-                <div class="livroNaVitrine-imagemContainer" role="presentation">
-                    <img class="livroNaVitrine-imagem " src="./Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código_files/csharp-featured_large.png" alt="Livro de C# e Visual Studio" title="Livro de C# e Visual Studio">
-                </div>
-                <span class="livroNaVitrine-nome">
-                    C# e Visual Studio
-                </span>
-            </a>
-        </li>
+
+        @foreach (var item in Model.LastUpdates)
+        {
+            <li class="livroNaVitrine vitrineDestaquinho-produto">
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id" class="livroNaVitrine-link" title="@item.Title">
+                    <div class="livroNaVitrine-imagemContainer" role="presentation">
+                        <img class="livroNaVitrine-imagem " src="@item.CoverUri" alt="@item.DisplayName" title="@item.DisplayName">
+                    </div>
+                    <span class="livroNaVitrine-nome">
+                        @item.DisplayName
+                    </span>
+                </a>
+            </li>
+        }
     </ul>
 </section>

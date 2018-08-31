@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CasaDoCodigo.EF.Migrations
 {
     [DbContext(typeof(CasaDoCodigoDbContext))]
-    [Migration("20180829153012_InitialMigration")]
+    [Migration("20180830034650_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,14 +27,10 @@ namespace CasaDoCodigo.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BookId");
-
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId");
 
                     b.ToTable("Authors");
                 });
@@ -46,6 +42,8 @@ namespace CasaDoCodigo.EF.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("CategoryId");
+
+                    b.Property<string>("CoverUri");
 
                     b.Property<string>("DisplayName")
                         .IsRequired();
@@ -73,6 +71,19 @@ namespace CasaDoCodigo.EF.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("CasaDoCodigo.Model.BookAuthorJoin", b =>
+                {
+                    b.Property<int>("BookId");
+
+                    b.Property<int>("AuthorId");
+
+                    b.HasKey("BookId", "AuthorId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("BookAuthorJoin");
+                });
+
             modelBuilder.Entity("CasaDoCodigo.Model.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -91,18 +102,24 @@ namespace CasaDoCodigo.EF.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("CasaDoCodigo.Model.Author", b =>
-                {
-                    b.HasOne("CasaDoCodigo.Model.Book")
-                        .WithMany("Authors")
-                        .HasForeignKey("BookId");
-                });
-
             modelBuilder.Entity("CasaDoCodigo.Model.Book", b =>
                 {
                     b.HasOne("CasaDoCodigo.Model.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
+                });
+
+            modelBuilder.Entity("CasaDoCodigo.Model.BookAuthorJoin", b =>
+                {
+                    b.HasOne("CasaDoCodigo.Model.Author", "Author")
+                        .WithMany("BookAuthors")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CasaDoCodigo.Model.Book", "Book")
+                        .WithMany("BookAuthors")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CasaDoCodigo.Model.Category", b =>
