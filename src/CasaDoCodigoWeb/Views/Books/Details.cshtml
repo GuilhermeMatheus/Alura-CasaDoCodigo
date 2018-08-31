@@ -62,31 +62,8 @@
         </div>
     </header>
 
-    <form action="/cart/add" method="POST" class="adicionarAoCarrinho">
+    <form asp-action="AddToCart" asp-controller="Cart" asp-route-bookId="@Model.Id" method="POST" class="adicionarAoCarrinho">
         <ul class="adicionarAoCarrinho-listaOfertas">
-            <li class="adicionarAoCarrinho-oferta">
-                <label class="adicionarAoCarrinho-infosDaOferta" for="product-variant-21287194119">
-                    <span class="adicionarAoCarrinho-tipoDaOferta" role="presentation">
-                        <span class="adicionarAoCarrinho-tipoDaOferta-nome">
-                            E-book
-                        </span>
-                        <small class="adicionarAoCarrinho-tipoDaOferta-detalhe">
-                            (.pdf, .epub e .mobi)
-                        </small>
-                    </span>
-                    <p class="adicionarAoCarrinho-preco">
-                        <small class="adicionarAoCarrinho-preco-promocao">
-                            <del class="adicionarAoCarrinho-preco-promocao-valor">R$ 39,90</del> por
-                        </small>
-                        <span class="adicionarAoCarrinho-preco-valor" itemprop="price">
-                            R$ 29,90
-                        </span>
-                    </p>
-                </label>
-                <button class="adicionarAoCarrinho-botaoComprar" type="submit" name="id" value="21287194119" title="Compre o E-book">
-                    Comprar
-                </button>
-            </li>
             <li class="adicionarAoCarrinho-oferta">
                 <label class="adicionarAoCarrinho-infosDaOferta" for="product-variant-21287194183">
                     <span class="adicionarAoCarrinho-tipoDaOferta" role="presentation">
@@ -96,7 +73,7 @@
                     </span>
                     <p class="adicionarAoCarrinho-preco">
                         <span class="adicionarAoCarrinho-preco-valor" itemprop="price">
-                            R$ 69,90
+                            R$ @Model.Price.ToString("#.00")
                         </span>
                     </p>
                 </label>
@@ -104,25 +81,6 @@
                     Comprar
                 </button>
             </li>
-
-            <li class="adicionarAoCarrinho-oferta">
-                <label class="adicionarAoCarrinho-infosDaOferta" for="product-variant-21287194247">
-                    <span class="adicionarAoCarrinho-tipoDaOferta" role="presentation">
-                        <span class="adicionarAoCarrinho-tipoDaOferta-nome">
-                            E-book + Impresso
-                        </span>
-                    </span>
-                    <p class="adicionarAoCarrinho-preco">
-                        <span class="adicionarAoCarrinho-preco-valor" itemprop="price">
-                            R$ 79,90
-                        </span>
-                    </p>
-                </label>
-                <button class="adicionarAoCarrinho-botaoComprar" type="submit" name="id" value="21287194247" title="Compre o E-book + Impresso">
-                    Comprar
-                </button>
-            </li>
-
         </ul>
     </form>
 

@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CasaDoCodigo.Core.Repository;
+using CasaDoCodigo.Core.Service;
 using CasaDoCodigo.EF;
 using CasaDoCodigo.Model;
+using CasaDoCodigoWeb.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,9 +48,16 @@ namespace CasaDoCodigoWeb
                     .UseSqlServer(connectionString)
             );
 
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+            });
+
+            services.AddTransient<ICartService, InSessionCartService>();
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<IAuthorRepository, AuthorRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddAutoMapper();
 
@@ -70,6 +79,7 @@ namespace CasaDoCodigoWeb
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CasaDoCodigo.Model.Cart
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,84 +8,72 @@
     <section class="infoSection container">
         <h2 class="infoSection-titulo">Seu carrinho</h2>
 
-        <form class="formularioDoCarrinho" action="/cart" method="post">
-            <table class="formularioDoCarrinho-tabela">
-                <thead class="formularioDoCarrinho-cabecalho">
-                    <tr>
-                        <th></th>
-                        <th class="formularioDoCarrinho-cabecalho-item">Item</th>
-                        <th class="formularioDoCarrinho-cabecalho-item formularioDoCarrinho-cabecalho-preco">Preço</th>
-                        <th class="formularioDoCarrinho-cabecalho-item">Qtd</th>
-                        <th class="formularioDoCarrinho-cabecalho-item">Total</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-
+        <table class="formularioDoCarrinho-tabela">
+            <thead class="formularioDoCarrinho-cabecalho">
+                <tr>
+                    <th></th>
+                    <th class="formularioDoCarrinho-cabecalho-item">Item</th>
+                    <th class="formularioDoCarrinho-cabecalho-item formularioDoCarrinho-cabecalho-preco">Preço</th>
+                    <th class="formularioDoCarrinho-cabecalho-item">Qtd</th>
+                    <th class="formularioDoCarrinho-cabecalho-item">Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Itens)
+                {
                     <tr>
                         <td class="formularioDoCarrinho-item">
-                            <a href="/products/livro-design-paterns-php">
-                                <img class="formularioDoCarrinho-item-imagem" src="//cdn.shopify.com/s/files/1/0155/7645/products/cover_755a35d9-dd95-4aff-b5dc-252904532bf7_small.jpg?v=1527274139">
+                            <a asp-action="Details" asp-controller="Books" asp-route-id="@item.Book.Id">
+                                <img class="formularioDoCarrinho-item-imagem" src="@item.Book.CoverUri">
                             </a>
                         </td>
                         <td class="formularioDoCarrinho-item">
                             <h2 class="formularioDoCarrinho-item-titulo">
-                                Design Patterns com PHP 7: Desenvolva com as melhores
-                                soluções - E-book
+                                @item.Book.Title
                             </h2>
                         </td>
-                        <td class="formularioDoCarrinho-item formularioDoCarrinho-item-preco">R$29,90</td>
+                        <td class="formularioDoCarrinho-item formularioDoCarrinho-item-preco"> @item.Book.Price </td>
                         <td class="formularioDoCarrinho-item">
-                            <input class="formularioDoCarrinho-item-quantidade" type="number" min="0" id="updates_12163418259531" name="updates[12163418259531]"
-                                   value="1">
+                            <h2 class="formularioDoCarrinho-item-titulo">
+                                @item.Quantity
+                            </h2>
                         </td>
-                        <td class="formularioDoCarrinho-item formularioDoCarrinho-item-precoTotal" title="Preço unitário: R$29,90">R$29,90</td>
                         <td class="formularioDoCarrinho-item">
-                            <a href="/cart/change?id=12163418259531&amp;quantity=0">
-                                <img class="formularioDoCarrinho-item-remover-imagem" src="~/images/trash.png" alt="X" title="Remover">
-                            </a>
+                            <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                <button type="submit" name="bookId" value="@item.Book.Id">
+                                    Adicionar 1
+                                </button>
+                            </form>
+                            <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                                <button type="submit" name="bookId" value="@item.Book.Id">
+                                    Remover 1
+                                </button>
+                            </form>
+                            <form asp-action="DeleteFromCart" asp-controller="Cart" method="post">
+                                <button type="submit" name="bookId" value="@item.Book.Id">
+                                    <img class="formularioDoCarrinho-item-remover-imagem" src="~/images/trash.png" alt="X" title="Remover">
+                                </button>
+                            </form>
                         </td>
                     </tr>
+                }
+            </tbody>
 
-                </tbody>
-                <tfoot class="formularioDoCarrinho-rodape">
-                    <tr>
-                        <td class="formularioDoCarrinho-rodape-item formularioDoCarrinho-finalizar" colspan="3">
+            <tfoot class="formularioDoCarrinho-rodape">
+                <tr>
+                    <td class="formularioDoCarrinho-rodape-item formularioDoCarrinho-finalizar" colspan="3">
+                        <form class="formularioDoCarrinho" action="/cart" method="post">
                             <button class="formularioDoCarrinho-finalizar-botao" type="submit" name="checkout">
                                 Finalizar<span class="formularioDoCarrinho-finalizar-botao-texto" role="presentation">compra</span>
                             </button>
-                        </td>
-                        <td class="formularioDoCarrinho-rodape-item">
-                            <button class="formularioDoCarrinho-atualizar" type="submit" name="update">Atualizar</button>
-                        </td>
-                        <td class="formularioDoCarrinho-rodape-item">
-                            R$29,90
-                        </td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </form>
-
+                        </form>
+                    </td>
+                    <td class="formularioDoCarrinho-rodape-item">
+                        R$ @Model.TotalPrice.ToString("0,00")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
     </section>
-
-
-
-    <div class="buscaDoRodape container" role="presentation">
-        <form role="search" aria-labelledby="rotuloBuscaDoRodape" action="/search" method="GET" class="buscaDoRodape-formulario">
-            <label id="rotuloBuscaRodape" class="buscaDoRodape-rotuloEscondido" for="campoBuscaRodape">
-                Busque por autor,
-                título, conteúdo...
-            </label>
-            <label class="buscaDoRodape-rotulo" for="campoBuscaRodape">Não encontrou o seu livro?</label>
-            <fieldset class="buscaDoRodape-fieldset">
-                <input type="hidden" name="type" value="product">
-                <input id="campoBuscaRodape" class="buscaDoRodape-campo" placeholder="Busque por autor, título, conteúdo..." type="search"
-                       name="q" required="" aria-required="">
-                <button class="buscaDoRodape-enviar" type="submit">
-                    Buscar
-                </button>
-            </fieldset>
-        </form>
-    </div>
 </main>

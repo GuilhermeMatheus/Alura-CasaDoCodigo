@@ -236,10 +236,10 @@
                 </li>
                 </nav>
             </div>
-            <a tabindex="3" href="https://www.casadocodigo.com.br/cart" title="Ir para sacola de compras" class="sacola cabecalhoPrincipal-itemNavegacao">
+            <a tabindex="3" asp-action="Index" asp-controller="Cart" title="Ir para sacola de compras" class="sacola cabecalhoPrincipal-itemNavegacao">
                 <svg width="60px" height="24px" viewBox="0 0 60 24" role="img" aria-labelledby="sacolaLabel" class="sacola-icone">
                     <title id="sacolaLabel">
-                        Você tem 0 itens na sacola
+                        Você tem N itens na sacola
                     </title>
                     <g fill="none" fill-rule="evenodd" stroke="#FBFAF9" stroke-linecap="square" stroke-width="2">
                         <path d="m47.550692,23l-18,0l0,-17l18,0l0,17z"></path>
@@ -247,7 +247,7 @@
                     </g>
                     <g>
                         <circle cy="14.681157" cx="13.148581" r="9" role="presentation" fill="#FFF"></circle>
-                        <text text-decoration="none" text-anchor="middle" x="13.148581" y="19" class="sacola-contador">0</text>
+                        <text text-decoration="none" text-anchor="middle" x="13.148581" y="19" class="sacola-contador">N</text>
                     </g>
                 </svg>
             </a>
@@ -262,6 +262,9 @@
 
     <main>
         @RenderBody()
+
+        <div class="buscaDoRodape container" role="presentation">
+        </div>
     </main>
     <footer class="caelum-footer">
         <div class="grupoCaelum">
