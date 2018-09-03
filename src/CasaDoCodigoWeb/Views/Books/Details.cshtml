@@ -72,9 +72,10 @@
                         </span>
                     </span>
                     <p class="adicionarAoCarrinho-preco">
-                        <span class="adicionarAoCarrinho-preco-valor" itemprop="price">
+                        <money-display value="@Model.Price" class="adicionarAoCarrinho-preco-valor" itemprop="price" />
+                        @*<span class="adicionarAoCarrinho-preco-valor" itemprop="price">
                             R$ @Model.Price.ToString("#.00")
-                        </span>
+                        </span>*@
                     </p>
                 </label>
                 <button class="adicionarAoCarrinho-botaoComprar" type="submit" name="id" value="21287194183" title="Compre o Impresso">

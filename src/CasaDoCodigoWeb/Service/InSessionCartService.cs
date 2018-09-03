@@ -28,13 +28,13 @@ namespace CasaDoCodigoWeb.Service
             ThrowIfNull(book, nameof(book));
 
             var bookKey = GetBookSessionKey(book);
-            var bookInCart = _session.GetInt32(bookKey);
+            var bookInCart = _httpContextAccessor.HttpContext.Session.GetInt32(bookKey);
 
             var bookKeyValue = bookInCart.HasValue
                 ? bookInCart.Value + 1
                 : 1;
 
-            _session.SetInt32(bookKey, bookKeyValue);
+            _httpContextAccessor.HttpContext.Session.SetInt32(bookKey, bookKeyValue);
         }
 
         public void RemoveFromCart(Book book)
@@ -42,16 +42,16 @@ namespace CasaDoCodigoWeb.Service
             ThrowIfNull(book, nameof(book));
 
             var bookKey = GetBookSessionKey(book);
-            var bookInCart = _session.GetInt32(bookKey);
+            var bookInCart = _httpContextAccessor.HttpContext.Session.GetInt32(bookKey);
 
             if (!bookInCart.HasValue)
                 return;
 
             var newValue = bookInCart.Value - 1;
             if (newValue <= 0)
-                _session.Remove(bookKey);
+                _httpContextAccessor.HttpContext.Session.Remove(bookKey);
             else
-                _session.SetInt32(bookKey, newValue);
+                _httpContextAccessor.HttpContext.Session.SetInt32(bookKey, newValue);
         }
 
         public void DeleteFromCart(Book book)
@@ -59,16 +59,16 @@ namespace CasaDoCodigoWeb.Service
             ThrowIfNull(book, nameof(book));
 
             var bookKey = GetBookSessionKey(book);
-            _session.Remove(bookKey);
+            _httpContextAccessor.HttpContext.Session.Remove(bookKey);
         }
         
         public Cart GetCart()
         {
-            var books = (from key in _session.Keys
+            var books = (from key in _httpContextAccessor.HttpContext.Session.Keys
                          where key.StartsWith(CART_SESSION_PREFIX)
                          let bookIdPortion = key.Replace(CART_SESSION_PREFIX, String.Empty)
                          let bookId = Int32.Parse(bookIdPortion)
-                         let quantity = _session.GetInt32(key).Value
+                         let quantity = _httpContextAccessor.HttpContext.Session.GetInt32(key).Value
                          select (bookId, quantity)).ToDictionary(b => b.bookId, b => b.quantity);
 
             var onlyKeys = books.Select(b => b.Key).ToArray();

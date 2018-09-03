@@ -1,5 +1,4 @@
 ﻿@model CasaDoCodigo.Model.Cart
-
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -33,7 +32,9 @@
                                 @item.Book.Title
                             </h2>
                         </td>
-                        <td class="formularioDoCarrinho-item formularioDoCarrinho-item-preco"> @item.Book.Price </td>
+                        <td class="formularioDoCarrinho-item formularioDoCarrinho-item-preco">
+                            <money-display value="@item.Price" />
+                        </td>
                         <td class="formularioDoCarrinho-item">
                             <h2 class="formularioDoCarrinho-item-titulo">
                                 @item.Quantity
@@ -70,7 +71,7 @@
                         </form>
                     </td>
                     <td class="formularioDoCarrinho-rodape-item">
-                        R$ @Model.TotalPrice.ToString("0,00")
+                        <money-display value="@Model.TotalPrice"/>
                     </td>
                 </tr>
             </tfoot>
