@@ -8,7 +8,8 @@ namespace CasaDoCodigo.Model
     {
         public Book Book { get; }
         public int Quantity { get; }
-        public decimal Price => Book.Price * Quantity;
+        public decimal Price => Book.Price;
+        public decimal TotalPrice => Book.Price * Quantity;
 
         public CartItem(Book book, int quantity)
         {

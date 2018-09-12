@@ -4,6 +4,47 @@
 }
 
 <main>
+    <style>
+        tr:hover .button-container {
+            display: block;
+        }
+        .button-container {
+            display: none;
+            position: relative;
+        }
+        .formularioDoCarrinho-item-button-top, .formularioDoCarrinho-item-button-bottom {
+            position: absolute;
+            right: -7px;
+        }
+
+            .formularioDoCarrinho-item-button-top button, .formularioDoCarrinho-item-button-bottom button {
+                width: 20px;
+                height: 20px;
+                display: block;
+            }
+
+        .formularioDoCarrinho-item-button-top {
+            top: -23px;
+        }
+        .formularioDoCarrinho-item-button-bottom {
+            top: -3px;
+        }
+
+
+        .formularioDoCarrinho-item-button {
+            background-color: transparent;
+            border: none;
+            color: black;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .formularioDoCarrinho-item-button:hover {
+            background-color: #E4A830;
+        }
+    </style>
+
     <section class="infoSection container">
         <h2 class="infoSection-titulo">Seu carrinho</h2>
 
@@ -39,20 +80,25 @@
                             <h2 class="formularioDoCarrinho-item-titulo">
                                 @item.Quantity
                             </h2>
+                            <div class="button-container">
+                                <form class="formularioDoCarrinho-item-button-top" asp-action="AddToCart" asp-controller="Cart" method="post">
+                                    <button class="formularioDoCarrinho-item-button" type="submit" name="bookId" value="@item.Book.Id">
+                                        ˄
+                                    </button>
+                                </form>
+                                <form class="formularioDoCarrinho-item-button-bottom" asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                                    <button class="formularioDoCarrinho-item-button formularioDoCarrinho-item-button-hideable" type="submit" name="bookId" value="@item.Book.Id">
+                                        ˅
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                        <td class="formularioDoCarrinho-item formularioDoCarrinho-item-preco">
+                            <money-display value="@item.TotalPrice" />
                         </td>
                         <td class="formularioDoCarrinho-item">
-                            <form asp-action="AddToCart" asp-controller="Cart" method="post">
-                                <button type="submit" name="bookId" value="@item.Book.Id">
-                                    Adicionar 1
-                                </button>
-                            </form>
-                            <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
-                                <button type="submit" name="bookId" value="@item.Book.Id">
-                                    Remover 1
-                                </button>
-                            </form>
                             <form asp-action="DeleteFromCart" asp-controller="Cart" method="post">
-                                <button type="submit" name="bookId" value="@item.Book.Id">
+                                <button class="formularioDoCarrinho-item-button" type="submit" name="bookId" value="@item.Book.Id">
                                     <img class="formularioDoCarrinho-item-remover-imagem" src="~/images/trash.png" alt="X" title="Remover">
                                 </button>
                             </form>
@@ -63,7 +109,7 @@
 
             <tfoot class="formularioDoCarrinho-rodape">
                 <tr>
-                    <td class="formularioDoCarrinho-rodape-item formularioDoCarrinho-finalizar" colspan="3">
+                    <td class="formularioDoCarrinho-rodape-item formularioDoCarrinho-finalizar" colspan="5">
                         <form class="formularioDoCarrinho" action="/cart" method="post">
                             <button class="formularioDoCarrinho-finalizar-botao" type="submit" name="checkout">
                                 Finalizar<span class="formularioDoCarrinho-finalizar-botao-texto" role="presentation">compra</span>
