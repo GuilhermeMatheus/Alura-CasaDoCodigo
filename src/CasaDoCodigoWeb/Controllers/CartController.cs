@@ -1,5 +1,6 @@
 ﻿using CasaDoCodigo.Core.Repository;
 using CasaDoCodigo.Core.Service;
+using CasaDoCodigoWeb.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,26 @@ namespace CasaDoCodigoWeb.Controllers
 
         public IActionResult Index()
         {
-            var items = _cartService.GetCart();
-            return View(items);
+            var cart = _cartService.GetCart();
+            return View(cart);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetBookQuantity(int bookId, int quantity)
+        {
+            var book = await _bookRepository.GetAsync(bookId);
+            _cartService.AddToCart(book, quantity);
+
+            var cart = _cartService.GetCart();
+            var cartTotalPrice = cart.TotalPrice;
+            var bookTotalPrice = cart.Itens.First(b => b.Book.Id == bookId).TotalPrice;
+
+            var result = new {
+                cartTotalPrice = StringHelper.ToMoneyDisplay(cartTotalPrice),
+                bookTotalPrice = StringHelper.ToMoneyDisplay(bookTotalPrice)
+            };
+
+            return Json(result);
         }
 
         [HttpPost]

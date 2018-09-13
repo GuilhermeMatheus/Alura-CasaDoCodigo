@@ -23,6 +23,14 @@ namespace CasaDoCodigoWeb.Service
             _bookRepository = bookRepository ?? throw new ArgumentNullException(nameof(bookRepository));
         }
 
+        public void AddToCart(Book book, int quantity)
+        {
+            ThrowIfNull(book, nameof(book));
+
+            var bookKey = GetBookSessionKey(book);
+            _httpContextAccessor.HttpContext.Session.SetInt32(bookKey, quantity);
+        }
+
         public void AddToCart(Book book)
         {
             ThrowIfNull(book, nameof(book));

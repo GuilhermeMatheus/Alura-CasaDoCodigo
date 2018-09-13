@@ -62,7 +62,7 @@
             <tbody>
                 @foreach (var item in Model.Itens)
                 {
-                    <tr>
+                    <tr data-book="@item.Book.Id">
                         <td class="formularioDoCarrinho-item">
                             <a asp-action="Details" asp-controller="Books" asp-route-id="@item.Book.Id">
                                 <img class="formularioDoCarrinho-item-imagem" src="@item.Book.CoverUri">
@@ -77,23 +77,9 @@
                             <money-display value="@item.Price" />
                         </td>
                         <td class="formularioDoCarrinho-item">
-                            <h2 class="formularioDoCarrinho-item-titulo">
-                                @item.Quantity
-                            </h2>
-                            <div class="button-container">
-                                <form class="formularioDoCarrinho-item-button-top" asp-action="AddToCart" asp-controller="Cart" method="post">
-                                    <button class="formularioDoCarrinho-item-button" type="submit" name="bookId" value="@item.Book.Id">
-                                        ˄
-                                    </button>
-                                </form>
-                                <form class="formularioDoCarrinho-item-button-bottom" asp-action="RemoveFromCart" asp-controller="Cart" method="post">
-                                    <button class="formularioDoCarrinho-item-button formularioDoCarrinho-item-button-hideable" type="submit" name="bookId" value="@item.Book.Id">
-                                        ˅
-                                    </button>
-                                </form>
-                            </div>
+                            <input class="formularioDoCarrinho-item-quantidade" type="number" min="1" value="@item.Quantity">
                         </td>
-                        <td class="formularioDoCarrinho-item formularioDoCarrinho-item-preco">
+                        <td class="formularioDoCarrinho-item formularioDoCarrinho-item-preco formularioDoCarrinho-item-preco-total">
                             <money-display value="@item.TotalPrice" />
                         </td>
                         <td class="formularioDoCarrinho-item">
@@ -116,7 +102,7 @@
                             </button>
                         </form>
                     </td>
-                    <td class="formularioDoCarrinho-rodape-item">
+                    <td id="formularioDoCarrinho-preco-carrinho" class="formularioDoCarrinho-rodape-item">
                         <money-display value="@Model.TotalPrice"/>
                     </td>
                 </tr>
@@ -124,3 +110,35 @@
         </table>
     </section>
 </main>
+
+@section Scripts {
+<script >
+    (function () {
+        var totalPrice = document.getElementById('formularioDoCarrinho-preco-carrinho').children[0];
+        var countElements = document.getElementsByClassName('formularioDoCarrinho-item-quantidade');
+
+        for (var i = 0; i < countElements.length; i++) {
+            var elem = countElements[i];
+            elem.addEventListener("input", (e) => { 
+                var row = e.target.closest('tr');
+                var price = row.getElementsByClassName('formularioDoCarrinho-item-preco-total')[0].children[0];
+                var value = +e.target.value;
+                var bookId = row.getAttribute('data-book');
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', `Cart/SetBookQuantity`);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var result = JSON.parse(xhr.responseText);
+
+                        totalPrice.textContent = result.cartTotalPrice;
+                        price.textContent = result.bookTotalPrice;
+                    }
+                };
+                xhr.send(encodeURI(`bookId=${bookId}&quantity=${value}`));
+            });
+        }
+    })();
+</script>
+}
